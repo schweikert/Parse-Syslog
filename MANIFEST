@@ -1,0 +1,14 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+lib/Parse/Syslog.pm
+t/linux.t
+t/linux-syslog
+t/linux-parsed
+t/solaris26.t
+t/solaris26-syslog
+t/solaris26-parsed
+t/solaris28.t
+t/solaris28-syslog
+t/solaris28-parsed

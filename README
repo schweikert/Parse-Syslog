@@ -1,0 +1,26 @@
+Parse/Syslog
+============
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+DOCUMENTATION
+
+The documentation is embedded in the module itself. Type
+'perldoc lib/Parse/Syslog.pm' (or 'man Parse::Syslog' if the
+man-page was installed) to see it.
+
+COPYRIGHT AND LICENCE
+
+Copyright (c) 2001, Swiss Federal Institute of Technology, Zurich.
+All Rights Reserved.
+
+This module is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+

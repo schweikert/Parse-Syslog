@@ -1,0 +1,6 @@
+Revision history for Perl extension Parse::Syslog.
+
+0.01  Sun Aug 12 19:25:32 2001
+	- original version; created by h2xs 1.21 with options
+		-AX -n Parse::Syslog
+
