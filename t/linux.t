@@ -1,4 +1,5 @@
 use Test;
+use lib "lib";
 BEGIN { plan tests => 39 };
 use Parse::Syslog;
 ok(1); # If we made it this far, we're ok.

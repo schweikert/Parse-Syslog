@@ -1,4 +1,5 @@
 use Test;
+use lib "lib";
 BEGIN {
 	# only test if File::Tail is installed
 	eval 'require File::Tail' or do {
