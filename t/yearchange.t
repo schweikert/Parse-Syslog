@@ -1,16 +1,16 @@
 use Test;
 use lib "lib";
-BEGIN { plan tests => 41 };
+BEGIN { plan tests => 21 };
 use Parse::Syslog;
 ok(1); # If we made it this far, we're ok.
 
 #########################
 
-my $parser = Parse::Syslog->new("t/linux-syslog", year=>2001, GMT=>1);
-open(PARSED, "<t/linux-parsed") or die "can't open t/linux-parsed: $!\n";
+my $parser = Parse::Syslog->new("t/yearchange-syslog", year=>2001);
+open(PARSED, "<t/yearchange-parsed") or die "can't open t/yearchange-parsed: $!\n";
 while(my $sl = $parser->next) {
 	my $is = '';
-	$is .= "time    : ".(gmtime($sl->{timestamp}))."\n";
+	$is .= "time    : ".(localtime($sl->{timestamp}))."\n";
 	$is .= "host    : $sl->{host}\n";
 	$is .= "program : $sl->{program}\n";
 	$is .= "pid     : ".(defined $sl->{pid} ? $sl->{pid} : 'undef')."\n";

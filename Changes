@@ -1,7 +1,15 @@
 Revision history for Perl extension Parse::Syslog.
 
+2002-01-29
+
+     * released 0.05
+     * allow space in program name (reported by alian@cpan.org)
+     * low-case month names (reported by alian@cpan.org)
+     * ignore '-- MARK --'  (reported by alian@cpan.org)
+
 2001-10-30
 
+     * released 0.04
      * repeat "last-message-repeated xx times" for the same host
      * more robust year-increment algorithm
      * implemented arrayref option

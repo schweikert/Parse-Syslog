@@ -6,13 +6,17 @@ use Time::Local;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '0.04';
+$VERSION = '0.05';
 
 my %months_map = (
     'Jan' => 0, 'Feb' => 1, 'Mar' => 2,
     'Apr' => 3, 'May' => 4, 'Jun' => 5,
     'Jul' => 6, 'Aug' => 7, 'Sep' => 8,
-    'Oct' => 9, 'Nov' =>10, 'Dec' =>11
+    'Oct' => 9, 'Nov' =>10, 'Dec' =>11,
+    'jan' => 0, 'feb' => 1, 'mar' => 2,
+    'apr' => 3, 'may' => 4, 'jun' => 5,
+    'jul' => 6, 'aug' => 7, 'sep' => 8,
+    'oct' => 9, 'nov' =>10, 'dec' =>11,
 );
 
 # fast timelocal
@@ -145,12 +149,15 @@ sub next($)
             return $self->{_last_data}{$host};
         }
 
+        # marks
+        next if $text eq '-- MARK --';
+
         # some systems send over the network their
         # hostname prefixed to the text. strip that.
-        $text =~ s/^[-\w+\.]+\s+//;
+        $text =~ s/^$host\s+//;
 
         $text =~ /^
-            (\S+?)          # program   -- 1
+            ([^:]+?)        # program   -- 1
             (?:\[(\d+)\])?  # PID       -- 2
             :\s+
             (?:\[ID\ (\d+)\ ([a-z0-9]+)\.([a-z]+)\]\ )?   # Solaris 8 "message id" -- 3, 4, 5

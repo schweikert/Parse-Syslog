@@ -14,3 +14,6 @@ t/solaris26-parsed
 t/solaris28.t
 t/solaris28-syslog
 t/solaris28-parsed
+t/yearchange.t
+t/yearchange-syslog
+t/yearchange-parsed
