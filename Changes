@@ -1,5 +1,14 @@
 Revision history for Perl extension Parse::Syslog.
 
+2002-05-02
+
+     * released 1.00
+     * HP-UX fixes (reported by Peter.Barlow@accenture.com)
+
+2002-04-17
+
+     * parse 'above message repeats xx times'
+
 2002-01-29
 
      * released 0.05

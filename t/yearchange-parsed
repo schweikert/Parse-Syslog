@@ -100,21 +100,3 @@ program : sshd
 pid     : 1517
 text    : error: Hm, dispatch protocol error: type 32 plen 4
 
-time    : Mon Dec  1 22:10:39 2003
-host    : otaniemi.ee.ethz.ch
-program : sshd
-pid     : 1517
-text    : error: Hm, dispatch protocol error: type 32 plen 4
-
-time    : Thu Jan  1 22:10:39 2004
-host    : otaniemi.ee.ethz.ch
-program : sshd
-pid     : 1517
-text    : error: Hm, dispatch protocol error: type 32 plen 4
-
-time    : Sun Feb  1 22:10:39 2004
-host    : otaniemi.ee.ethz.ch
-program : sshd
-pid     : 1517
-text    : error: Hm, dispatch protocol error: type 32 plen 4
-

@@ -6,7 +6,7 @@ use Time::Local;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '0.05';
+$VERSION = '1.00';
 
 my %months_map = (
     'Jan' => 0, 'Feb' => 1, 'Mar' => 2,
@@ -137,7 +137,7 @@ sub next($)
         my ($host, $text) = ($6, $7);
 
         # last message repeated ... times
-        if($text =~ /^last message repeated (\d+) time/) {
+        if($text =~ /^(?:last message repeated|above message repeats) (\d+) time/) {
             next line if defined $self->{repeat} and not $self->{repeat};
             next line if not defined $self->{_last_data}{$host};
             $1 > 0 or do {
@@ -155,6 +155,10 @@ sub next($)
         # some systems send over the network their
         # hostname prefixed to the text. strip that.
         $text =~ s/^$host\s+//;
+
+        # discard ':' in HP-UX 'su' entries like this:
+        # Apr 24 19:09:40 remedy : su : + tty?? root-oracle
+        $text =~ s/^:\s+//;
 
         $text =~ /^
             ([^:]+?)        # program   -- 1
@@ -356,6 +360,7 @@ David Schweikert <dws@ee.ethz.ch>
  2001-08-19 ds 0.02 fix 'last message repeated xx times', Solaris 8 problems
  2001-08-20 ds 0.03 implemented GMT option, year specification, File::Tail
  2001-10-31 ds 0.04 faster time parsing, implemented 'arrayref' option, better time-increment algorithm
+ 2002-01-29 ds 0.05 ignore -- MARK -- lines, low-case months, space in program names
 
 =cut
 

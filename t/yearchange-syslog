@@ -15,6 +15,3 @@ Aug  1 22:10:39 otaniemi.ee.ethz.ch sshd[1517]: error: Hm, dispatch protocol err
 Sep  1 22:10:39 otaniemi.ee.ethz.ch sshd[1517]: error: Hm, dispatch protocol error: type 32 plen 4
 Oct  1 22:10:39 otaniemi.ee.ethz.ch sshd[1517]: error: Hm, dispatch protocol error: type 32 plen 4
 Nov  1 22:10:39 otaniemi.ee.ethz.ch sshd[1517]: error: Hm, dispatch protocol error: type 32 plen 4
-Dec  1 22:10:39 otaniemi.ee.ethz.ch sshd[1517]: error: Hm, dispatch protocol error: type 32 plen 4
-Jan  1 22:10:39 otaniemi.ee.ethz.ch sshd[1517]: error: Hm, dispatch protocol error: type 32 plen 4
-Feb  1 22:10:39 otaniemi.ee.ethz.ch sshd[1517]: error: Hm, dispatch protocol error: type 32 plen 4

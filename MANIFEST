@@ -8,6 +8,9 @@ t/gmt.t
 t/linux.t
 t/linux-syslog
 t/linux-parsed
+t/misc.t
+t/misc-parsed
+t/misc-syslog
 t/solaris26.t
 t/solaris26-syslog
 t/solaris26-parsed
