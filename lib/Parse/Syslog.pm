@@ -6,7 +6,7 @@ use Time::Local;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.00';
+$VERSION = '1.01';
 
 my %months_map = (
     'Jan' => 0, 'Feb' => 1, 'Mar' => 2,
@@ -53,6 +53,20 @@ sub str2time($$$$$$$)
     return $time;
 }
 
+sub _use_locale($)
+{
+    use POSIX qw(locale_h strftime);
+    my $old_locale = setlocale(LC_TIME);
+    for my $locale (@_) {
+        croak "new(): wrong 'locale' value: '$locale'" unless setlocale(LC_TIME, $locale);
+        for my $month (0..11) {
+            $months_map{strftime("%b", 0, 0, 0, 1, $month, 96)} = $month;
+        }
+    }
+    setlocale(LC_TIME, $old_locale);
+}
+
+
 sub new($$;%)
 {
     my ($class, $file, %data) = @_;
@@ -70,6 +84,18 @@ sub new($$;%)
     else {
         $data{file}=gensym;
         open($data{file}, "<$file") or croak "can't open $file: $!";
+    }
+
+    if(defined $data{locale}) {
+        if(ref $data{locale} eq 'ARRAY') {
+            _use_locale @{$data{locale}};
+        }
+        elsif(ref $data{locale} eq '') {
+            _use_locale $data{locale};
+        }
+        else {
+            croak "'locale' parameter must be scalar or array of scalars";
+        }
     }
 
     return bless \%data, $class;
@@ -99,7 +125,7 @@ sub next($)
     line: while(my $str = $self->_next_line()) {
         # date, time and host 
         $str =~ /^
-            (\w{3})\s+(\d+)   # date  -- 1, 2
+            (\S{3})\s+(\d+)   # date  -- 1, 2
             \s
             (\d+):(\d+):(\d+) # time  -- 3, 4, 5
             \s
@@ -209,7 +235,10 @@ Parse::Syslog - Parse Unix syslog files
 
 =head1 SYNOPSIS
 
- my $parser = Parse::Syslog->new('/var/log/syslog', year=>2001);
+ my $parser = Parse::Syslog->new( '/var/log/syslog'
+                                , year   => 2001
+                                , locale => qw(de_CH ru_RU.koi8r)
+                                );
  while(my $sl = $parser->next) {
      ... access $sl->{timestamp|host|program|pid|text} ...
  }
@@ -280,6 +309,11 @@ pid
 text
 
 =back
+
+=item B<locale>
+
+Optional. Specifies an additional locale name or the array of locale names for
+the parsing of log files with national characters.
 
 =back
 

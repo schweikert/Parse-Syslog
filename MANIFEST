@@ -20,3 +20,6 @@ t/solaris28-parsed
 t/yearchange.t
 t/yearchange-syslog
 t/yearchange-parsed
+t/locale.t
+t/locale-parsed
+t/locale-syslog
