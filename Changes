@@ -1,5 +1,9 @@
 Revision history for Perl extension Parse::Syslog.
 
+2002-10-28
+
+     * fix off-by-one-hour error when running during daylight saving time switch
+
 2002-05-25
 
      * released 1.01

@@ -6,7 +6,7 @@ use Time::Local;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.01';
+$VERSION = '1.02';
 
 my %months_map = (
     'Jan' => 0, 'Feb' => 1, 'Mar' => 2,
@@ -19,23 +19,26 @@ my %months_map = (
     'oct' => 9, 'nov' =>10, 'dec' =>11,
 );
 
-# fast timelocal
-my $str2time_last_time;
-my $str2time_last_day;
-my $str2time_last_month;
-my $enable_year_decrement = 1; # year-increment algorithm: if in january, if december is seen, decrement
-                               # year
+# year-increment algorithm: if in january, if december is seen, decrement year
+my $enable_year_decrement = 1;
+
+# fast timelocal, cache minute's timestamp
+# don't cache more than minute because of daylight saving time switch
+my @str2time_last_minute;
+my $str2time_last_minute_timestamp;
 # 0: sec, 1: min, 2: h, 3: day, 4: month, 5: year
 sub str2time($$$$$$$)
 {
     my $GMT = pop @_;
-    my $day_secs = $_[2]*3600+$_[1]*60+$_[0];
-    if(defined $str2time_last_time) {
-        if( $_[3] == $str2time_last_day and
-            $_[4] == $str2time_last_month )
-        {
-            return $str2time_last_time + $day_secs;
-        }
+
+    if(defined $str2time_last_minute[4] and
+        $str2time_last_minute[0] == $_[1] and
+        $str2time_last_minute[1] == $_[2] and
+        $str2time_last_minute[2] == $_[3] and
+        $str2time_last_minute[3] == $_[4] and
+        $str2time_last_minute[4] == $_[5])
+    {
+        return $str2time_last_minute_timestamp + $_[0];
     }
 
     my $time;
@@ -46,9 +49,8 @@ sub str2time($$$$$$$)
         $time = timelocal(@_);
     }
 
-    $str2time_last_time = $time - $day_secs;
-    $str2time_last_day = $_[3];
-    $str2time_last_month = $_[4];
+    @str2time_last_minute = @_[1..5];
+    $str2time_last_minute_timestamp = $time-$_[0];
 
     return $time;
 }
@@ -395,6 +397,9 @@ David Schweikert <dws@ee.ethz.ch>
  2001-08-20 ds 0.03 implemented GMT option, year specification, File::Tail
  2001-10-31 ds 0.04 faster time parsing, implemented 'arrayref' option, better time-increment algorithm
  2002-01-29 ds 0.05 ignore -- MARK -- lines, low-case months, space in program names
+ 2002-05-02 ds 1.00 HP-UX fixes, parse 'above message repeats xx times'
+ 2002-05-25 ds 1.01 added support for localized month names (uchum@mail.ru)
+ 2002-10-28 ds 1.02 fix off-by-one-hour error when running during daylight saving time switch
 
 =cut
 
