@@ -3,6 +3,8 @@ Makefile.PL
 MANIFEST
 README
 lib/Parse/Syslog.pm
+t/filetail.t
+t/gmt.t
 t/linux.t
 t/linux-syslog
 t/linux-parsed

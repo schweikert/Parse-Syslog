@@ -5,7 +5,7 @@ ok(1); # If we made it this far, we're ok.
 
 #########################
 
-my $parser = Parse::Syslog->new("t/linux-syslog");
+my $parser = Parse::Syslog->new("t/linux-syslog", year=>2001);
 open(PARSED, "<t/linux-parsed") or die "can't open t/linux-parsed: $!\n";
 while(my $sl = $parser->next) {
 	my $is = '';

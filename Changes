@@ -1,5 +1,14 @@
 Revision history for Perl extension Parse::Syslog.
 
+2001-08-20
+
+     * released 0.03
+     * implemented GMT option (scoobie@PamperedChef.dhs.org)
+     * add year specification to test scripts
+     * add better test for Solaris 8 message-id
+     * add support for File::Tail objects
+     * test 'last message repeated xx times' without message to repeat
+
 2001-08-19
 
      * released 0.02

@@ -1,11 +1,11 @@
 use Test;
-BEGIN { plan tests => 15 };
+BEGIN { plan tests => 16 };
 use Parse::Syslog;
 ok(1); # If we made it this far, we're ok.
 
 #########################
 
-my $parser = Parse::Syslog->new("t/solaris28-syslog");
+my $parser = Parse::Syslog->new("t/solaris28-syslog", year=>2001);
 open(PARSED, "<t/solaris28-parsed") or die "can't open t/solaris28-parsed: $!\n";
 while(my $sl = $parser->next) {
 	my $is = '';

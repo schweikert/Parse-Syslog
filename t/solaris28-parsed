@@ -124,3 +124,12 @@ facility: daemon
 level   : notice
 text    : connection from test [192.168.1.1] to /usr/test
 
+time    : Sat Aug 18 14:56:03 2001
+host    : bigbang.ee.ethz.ch
+program : snort
+pid     : undef
+msgid   : 381826
+facility: local5
+level   : info
+text    : IDS278/dns_named-probe-version: 211.20.98.98:3656 -> 129.132.20.8:53
+
