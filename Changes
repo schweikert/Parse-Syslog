@@ -1,6 +1,12 @@
 Revision history for Perl extension Parse::Syslog.
 
-0.01  Sun Aug 12 19:25:32 2001
-	- original version; created by h2xs 1.21 with options
-		-AX -n Parse::Syslog
+2001-08-19
 
+     * released 0.02
+     * fix 'last message repeated xx times' without message to repeat
+     * fix Solaris 8 message-id (include numbers in regex for local0, etc.)
+
+2001-08-12
+
+     * released 0.01
+     * created by h2xs 1.21 with options -AX -n Parse::Syslog

@@ -6,7 +6,7 @@ use Time::Local;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 my %months_map = (
     'Jan' => 0, 'Feb' => 1, 'Mar' => 2,
@@ -79,6 +79,7 @@ sub next($)
 	# last message repeated ... times
 	if($text =~ /^last message repeated (\d+) time/) {
 	    next line if defined $self->{repeat} and not $self->{repeat};
+            next line if not defined $self->{_last_data};
 	    $1 > 0 or do {
 		carp "last message repeated 0 or less times??";
 		next line;
@@ -96,7 +97,7 @@ sub next($)
 	    (\S+?)          # program   -- 1
 	    (?:\[(\d+)\])?  # PID       -- 2
 	    :\s+
-            (?:\[ID\ (\d+)\ ([a-z]+)\.([a-z]+)\]\ )?   # Solaris 8 "message id" -- 3, 4, 5
+            (?:\[ID\ (\d+)\ ([a-z0-9]+)\.([a-z0-9]+)\]\ )?   # Solaris 8 "message id" -- 3, 4, 5
 	    (.*)            # text      -- 6
 	    $/x or do
 	{
