@@ -6,7 +6,7 @@ use Time::Local;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.02';
+$VERSION = '1.03';
 
 my %months_map = (
     'Jan' => 0, 'Feb' => 1, 'Mar' => 2,
@@ -136,7 +136,7 @@ sub next($)
             (.*)              # text  -- 7
             $/x or do
         {
-            carp "line not in syslog format: $str";
+            warn "WARNING: line not in syslog format: $str";
             next line;
         };
         
@@ -161,6 +161,13 @@ sub next($)
 
         # convert to unix time
         my $time = str2time($5,$4,$3,$2,$mon,$self->{year}-1900,$self->{GMT});
+        if(not $self->{allow_future}) {
+            # accept maximum one day in the present future
+            if($time - time > 86400) {
+                warn "WARNING: ignoring future date in syslog line: $str";
+                next line;
+            }
+        }
 
         my ($host, $text) = ($6, $7);
 
@@ -169,7 +176,7 @@ sub next($)
             next line if defined $self->{repeat} and not $self->{repeat};
             next line if not defined $self->{_last_data}{$host};
             $1 > 0 or do {
-                carp "last message repeated 0 or less times??";
+                warn "WARNING: last message repeated 0 or less times??\n";
                 next line;
             };
             $self->{_repeat}=$1-1;
@@ -196,7 +203,7 @@ sub next($)
             (.*)            # text      -- 6
             $/x or do
         {
-            carp "line not in syslog format: $str";
+            warn "WARNING: line not in syslog format: $str";
             next line;
         };
 
@@ -317,6 +324,12 @@ text
 Optional. Specifies an additional locale name or the array of locale names for
 the parsing of log files with national characters.
 
+=item B<allow_future>
+
+If true will allow for timestamps in the future. Otherwise timestamps of one day
+in the future and more will not be returned (as a safety measure against wrong
+configurations, bogus --year arguments, etc.)
+
 =back
 
 =head2 Parsing the file
@@ -400,6 +413,7 @@ David Schweikert <dws@ee.ethz.ch>
  2002-05-02 ds 1.00 HP-UX fixes, parse 'above message repeats xx times'
  2002-05-25 ds 1.01 added support for localized month names (uchum@mail.ru)
  2002-10-28 ds 1.02 fix off-by-one-hour error when running during daylight saving time switch
+ 2004-01-19 ds 1.03 do not allow future dates (if allow_future is not true)
 
 =cut
 

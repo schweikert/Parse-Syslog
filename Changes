@@ -1,5 +1,9 @@
 Revision history for Perl extension Parse::Syslog.
 
+2004-01-19
+
+     * do not allow future dates (if allow_future is not true)
+
 2002-10-28
 
      * fix off-by-one-hour error when running during daylight saving time switch
