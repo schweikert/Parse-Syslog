@@ -8,6 +8,9 @@ t/gmt.t
 t/linux.t
 t/linux-syslog
 t/linux-parsed
+t/metalog.t
+t/metalog-syslog
+t/metalog-parsed
 t/misc.t
 t/misc-parsed
 t/misc-syslog
@@ -23,3 +26,6 @@ t/yearchange-parsed
 t/locale.t
 t/locale-parsed
 t/locale-syslog
+t/dst.t
+t/io-stringy.t
+META.yml                                 Module meta-data (added by MakeMaker)

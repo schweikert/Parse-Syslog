@@ -1,11 +1,30 @@
 Revision history for Perl extension Parse::Syslog.
 
+2005-12-26
+
+     * allow passing of a IO::Handle object to new
+     * ignore FreeBSD's [LOG_XXX] string (Artur Penttinen)
+     * fix timewarp during DST switch (reported by Anthony DeRobertis)
+
+2005-09-12
+
+     * allow : in hostname for IPv6 (Artur Penttinen)
+     * allow @ in hostname for syslog-ng (Mark Loeser)
+
+2004-07-11
+
+     * released 1.03
+     * support for metalog (based on code by Ralf Geschke)
+     * support FreeBSD's verbose logging
+
 2004-01-19
 
+     * released 1.03
      * do not allow future dates (if allow_future is not true)
 
 2002-10-28
 
+     * released 1.02
      * fix off-by-one-hour error when running during daylight saving time switch
 
 2002-05-25
