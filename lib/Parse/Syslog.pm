@@ -7,7 +7,7 @@ use IO::File;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.05';
+$VERSION = '1.06';
 
 my %months_map = (
     'Jan' => 0, 'Feb' => 1, 'Mar' => 2,
@@ -411,12 +411,12 @@ a file-name for the syslog-file to be parsed.
 
 =item *
 
-a File::Tail object as first argument, in which
-case the I<read> method will be called to get lines to process.
+an IO::Handle object.
 
 =item *
 
-a file handle (GLOB-ref) for an already-opened syslog-file.
+a File::Tail object as first argument, in which
+case the I<read> method will be called to get lines to process.
 
 =back
 

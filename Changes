@@ -1,13 +1,21 @@
 Revision history for Perl extension Parse::Syslog.
 
+2005-12-29
+
+     * released 1.06
+     * fix dst.t test to work when the system timezone is not CET
+     * small documentation fixes
+
 2005-12-26
 
+     * released 1.05
      * allow passing of a IO::Handle object to new
      * ignore FreeBSD's [LOG_XXX] string (Artur Penttinen)
      * fix timewarp during DST switch (reported by Anthony DeRobertis)
 
 2005-09-12
 
+     * internal release 1.04
      * allow : in hostname for IPv6 (Artur Penttinen)
      * allow @ in hostname for syslog-ng (Mark Loeser)
 
@@ -19,7 +27,6 @@ Revision history for Perl extension Parse::Syslog.
 
 2004-01-19
 
-     * released 1.03
      * do not allow future dates (if allow_future is not true)
 
 2002-10-28

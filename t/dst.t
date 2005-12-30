@@ -2,6 +2,7 @@ use lib 'lib';
 use Parse::Syslog;
 use IO::Scalar;
 use Test;
+use POSIX;
 
 BEGIN {
 	# only test if IO::Scalar is available
@@ -10,13 +11,16 @@ BEGIN {
 		warn "IO::Scalar not available: test skipped.\n";
 		exit;
 	};
-	
+
 	plan tests => 16
 };
 
 #  00:00  01:00  01:00  02:00
 # ---|------|------|------|-----
 # 
+
+$ENV{TZ} = 'CET-1CEST-2,M3.5.0/02:00:00,M10.5.0/03:00:00';
+POSIX::tzset();
 
 my $data = <<END;
 Oct 30 00:59:53 ivr3 bla: bla
