@@ -1,5 +1,9 @@
 Revision history for Perl extension Parse::Syslog.
 
+2005-12-30
+
+     * disable dst.t test for now because it doesn't work reliably.
+
 2005-12-29
 
      * released 1.06

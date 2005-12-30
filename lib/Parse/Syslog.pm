@@ -7,7 +7,7 @@ use IO::File;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.06';
+$VERSION = '1.07';
 
 my %months_map = (
     'Jan' => 0, 'Feb' => 1, 'Mar' => 2,
