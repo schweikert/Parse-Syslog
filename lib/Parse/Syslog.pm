@@ -7,7 +7,7 @@ use IO::File;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.07';
+$VERSION = '1.08';
 
 my %months_map = (
     'Jan' => 0, 'Feb' => 1, 'Mar' => 2,
@@ -42,11 +42,13 @@ sub is_dst_switch($$$)
     my $time_plus_1h = timelocal($t->[0], $t->[1], $t->[2]+1, $t->[3], $t->[4], $t->[5]);
 
     if($time_plus_1h - $time > 4000) {
-        return 3600, $time-$time%3600+3600;
+        @{$self->{is_dst_switch_result}} = (3600, $time-$time%3600+3600);
     }
     else {
-        return 0, undef;
+        @{$self->{is_dst_switch_result}} = (0, undef);
     }
+
+    return @{$self->{is_dst_switch_result}};
 }
 
 # fast timelocal, cache minute's timestamp
@@ -81,6 +83,13 @@ sub str2time($$$$$$$$)
     # - if a timewarp is detected (1:00 -> 1:30 -> 1:00):
     # - test if we are in a DST-switch-hour
     # - compensate if yes
+    # note that we assume that the DST-switch goes like this:
+    # time   1:00  1:30  2:00  2:30  2:00  2:30  3:00  3:30
+    # stamp   1     2     3     4     3     3     7     8  
+    # comp.   0     0     0     0     2     2     0     0
+    # result  1     2     3     4     5     6     7     8
+    # old Time::Local versions behave differently (1 2  5 6 5 6 7 8)
+
     if(!$GMT and !defined $self->{dst_comp} and
         defined $self->{last_time} and
         $self->{last_time}-$time > 1200 and
