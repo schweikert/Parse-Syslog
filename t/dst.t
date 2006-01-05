@@ -1,6 +1,5 @@
 use lib 'lib';
 use Parse::Syslog;
-use IO::Scalar;
 use Test;
 use POSIX;
 use Time::Local;

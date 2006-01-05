@@ -7,7 +7,7 @@ use IO::File;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.08';
+$VERSION = '1.09';
 
 my %months_map = (
     'Jan' => 0, 'Feb' => 1, 'Mar' => 2,
@@ -145,8 +145,14 @@ sub new($$;%)
         $data{filetail}=1;
     }
     elsif(! ref $file) {
-        $data{file} = new IO::File($file, "<");
-        defined $data{file} or croak "can't open $file: $!";
+        if($file eq '-') {
+            my $io = new IO::Handle;
+            $data{file} = $io->fdopen(fileno(STDIN),"r");
+        }
+        else {
+            $data{file} = new IO::File($file, "<");
+            defined $data{file} or croak "can't open $file: $!";
+        }
     }
     else {
         croak "argument must be either a file-name or an IO::Handle object.";
