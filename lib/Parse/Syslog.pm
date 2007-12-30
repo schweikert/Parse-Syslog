@@ -7,7 +7,7 @@ use IO::File;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.09';
+$VERSION = '1.10';
 
 my %months_map = (
     'Jan' => 0, 'Feb' => 1, 'Mar' => 2,
@@ -36,6 +36,14 @@ sub is_dst_switch($$$)
 
     # calculate a number out of the day and hour to identify the hour
     $self->{is_dst_switch_last_hour} = $t->[3]<<5+$t->[2];
+
+    # calculating hour+1 (below) is a problem if the hour is 23. as far as I
+    # know, nobody does the DST switch at this time, so just assume it isn't
+    # DST switch if the hour is 23.
+    if($t->[2]==23) {
+        @{$self->{is_dst_switch_result}} = (0, undef);
+        return @{$self->{is_dst_switch_result}};
+    }
 
     # let's see the timestamp in one hour
     # 0: sec, 1: min, 2: h, 3: day, 4: month, 5: year
@@ -216,7 +224,7 @@ sub _next_syslog($)
     }
 
     my $file = $self->{file};
-    line: while(my $str = $self->_next_line) {
+    line: while(defined (my $str = $self->_next_line)) {
         # date, time and host 
         $str =~ /^
             (\S{3})\s+(\d+)      # date  -- 1, 2

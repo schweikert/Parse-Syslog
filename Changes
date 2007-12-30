@@ -1,5 +1,10 @@
 Revision history for Perl extension Parse::Syslog.
 
+2007-12-30
+
+     * release 1.10
+     * DST-handling bugfix
+
 2006-01-01
 
      * release 1.09
