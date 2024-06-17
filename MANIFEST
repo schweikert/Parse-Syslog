@@ -5,6 +5,7 @@ MANIFEST
 README
 lib/Parse/Syslog.pm
 t/cpan-meta.t
+t/critic.t
 t/filetail.t
 t/gmt.t
 t/linux.t
@@ -18,6 +19,7 @@ t/misc.t
 t/misc-parsed
 t/misc-syslog
 t/rfc3339.t
+t/perlcriticrc
 t/solaris26.t
 t/solaris26-syslog
 t/solaris26-parsed
