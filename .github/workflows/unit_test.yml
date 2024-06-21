@@ -24,11 +24,15 @@ jobs:
           build-essential \
           libfile-tail-perl \
           libio-stringy-perl \
+          libperl-critic-community-perl \
           libtest-cpan-meta-yaml-perl \
+          libtest-perl-critic-perl \
           locales-all
     - name: Generate Makefile
       run:  perl Makefile.PL
     - name: Run unit tests
+      env:
+        TEST_AUTHOR: 1
       run:  make test
 
 # vim: set ts=2 sw=2 et si:
