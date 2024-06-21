@@ -34,5 +34,7 @@ jobs:
       env:
         TEST_AUTHOR: 1
       run:  make test
+    - name: Run distribution check
+      run:  make distcheck
 
 # vim: set ts=2 sw=2 et si:
