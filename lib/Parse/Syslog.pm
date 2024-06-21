@@ -6,6 +6,7 @@ use Time::Local;
 use IO::File;
 use strict;
 use vars qw($VERSION);
+use warnings;
 
 $VERSION = '1.10';
 
@@ -20,7 +21,7 @@ my %months_map = (
     'oct' => 9, 'nov' =>10, 'dec' =>11,
 );
 
-sub is_dst_switch($$$)
+sub is_dst_switch
 {
     my ($self, $t, $time) = @_;
 
@@ -62,7 +63,7 @@ sub is_dst_switch($$$)
 # fast timelocal, cache minute's timestamp
 # don't cache more than minute because of daylight saving time switch
 # 0: sec, 1: min, 2: h, 3: day, 4: month, 5: year
-sub str2time($$$$$$$$)
+sub str2time
 {
     my $self = shift @_;
     my $GMT = pop @_;
@@ -126,7 +127,7 @@ sub str2time($$$$$$$$)
     return $time+($self->{dst_comp}||0);
 }
 
-sub _use_locale($)
+sub _use_locale
 {
     use POSIX qw(locale_h strftime);
     my $old_locale = setlocale(LC_TIME);
@@ -140,7 +141,7 @@ sub _use_locale($)
 }
 
 
-sub new($$;%)
+sub new
 {
     my ($class, $file, %data) = @_;
     croak "new() requires one argument: file" unless defined $file;
@@ -160,11 +161,11 @@ sub new($$;%)
     }
     elsif(! ref $file) {
         if($file eq '-') {
-            my $io = new IO::Handle;
+            my $io = IO::Handle->new();
             $data{file} = $io->fdopen(fileno(STDIN),"r");
         }
         else {
-            $data{file} = new IO::File($file, "<");
+            $data{file} = IO::File->new($file, "<");
             defined $data{file} or croak "can't open $file: $!";
         }
     }
@@ -187,7 +188,7 @@ sub new($$;%)
     return bless \%data, $class;
 }
 
-sub _year_increment($$)
+sub _year_increment
 {
     my ($self, $mon) = @_;
 
@@ -208,7 +209,7 @@ sub _year_increment($$)
     $self->{_last_mon} = $mon;
 }
 
-sub _next_line($)
+sub _next_line
 {
     my $self = shift;
     my $f = $self->{file};
@@ -220,7 +221,7 @@ sub _next_line($)
     }
 }
 
-sub _next_syslog($)
+sub _next_syslog
 {
     my ($self) = @_;
 
@@ -339,7 +340,7 @@ sub _next_syslog($)
     return undef;
 }
 
-sub _next_metalog($)
+sub _next_metalog
 {
     my ($self) = @_;
     my $file = $self->{file};
@@ -401,7 +402,7 @@ sub _next_metalog($)
     return undef;
 }
 
-sub next($)
+sub next
 {
     my ($self) = @_;
     if($self->{type} eq 'syslog') {
