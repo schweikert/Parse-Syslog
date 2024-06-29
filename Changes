@@ -1,7 +1,10 @@
 Revision history for Perl extension Parse::Syslog.
 
-2024-06-09
+2024-08-18
+     * release 1.11
      * add support for RFC 3339 timestamps (Martin Schütte)
+     * code style fixes (Martin Schütte)
+     * automated testing in Github (Martin Schütte)
 
 2007-12-30
 

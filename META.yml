@@ -2,7 +2,7 @@
 # Metadata for use by CPAN
 name:               Parse-Syslog
 abstract:           simple interface to parse files written by syslog
-version:            1.10
+version:            1.11
 author:
     -               David Schweikert <david@schweikert.ch>
 license:            perl_5
