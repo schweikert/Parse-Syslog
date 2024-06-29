@@ -8,7 +8,7 @@ use strict;
 use vars qw($VERSION);
 use warnings;
 
-$VERSION = '1.10';
+$VERSION = '1.11';
 
 my %months_map = (
     'Jan' => 0, 'Feb' => 1, 'Mar' => 2,
